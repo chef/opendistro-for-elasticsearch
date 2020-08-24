@@ -1,28 +1,17 @@
-# MY PROJECT
-Include badges for your CI system and and package repositories such as RubyGems so the community can easily see the released version.
+Note on building journalbeat and metricbeat:
 
-Give a brief description of what the repository contains. What this application or library. Sell it.
+Version 6.8.x of these beats contain incompatible or non-existing dependencies. Fortunately, we do not use these dependencies. The missing dependencies include:
 
-## Requirements
+- Goja is a library used in preprocessors for Elasticsearch. We do not use this functionality.
 
-Are there any runtimes or other software required to use this application. List them out including their versions
-## Getting Started
-
-How does someone use the library or application. This may just be a link to a docs site. That's fine.
-
-
-## License
+https://www.elastic.co/guide/en/elasticsearch/reference/master/ingest.html
 
 ```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+/hab/cache/src/github.com/elastic/beats/libbeat/processors/script/javascript/session.go:267:14: s.Runtime().RegisterSimpleMapType undefined (type *goja.Runtime has no field or method RegisterSimpleMapType)
 ```
+
+- Aerospike is a Go client library for connecting to the aerospike nosql database. We do not use this functionality.
+
+https://www.aerospike.com/docs/client/go/examples.html
+
+/hab/cache/src/github.com/elastic/beats/metricbeat/module/aerospike/namespace/namespace.go:85:17: undefined: "github.com/aerospike/aerospike-client-go".RequestNodeInfo

@@ -1,0 +1,209 @@
+# ======================== Elasticsearch Configuration =========================
+# The es_yaml top level key contains whatever data will be written to elasticsearch.yml
+# 
+[es_yaml]
+  [es_yaml.bootstrap]
+    memory_lock = false  #true
+
+  [es_yaml.cluster]
+    name = "chef-insights"
+    [es_yaml.cluster.routing.allocation.disk.watermark]
+      low = "85%"
+      high = "90%"
+      flood_stage = "95%"
+
+  [es_yaml.discovery.zen]
+    minimum_master_nodes = 1
+
+  [es_yaml.http]
+    port = 9200
+
+  [es_yaml.transport.tcp]
+    port = 9300
+
+  [es_yaml.indices.recovery]
+    max_bytes_per_sec = "250mb"
+
+  [es_yaml.network]
+    host = "0.0.0.0"
+
+  [es_yaml.node]
+    max_local_storage_nodes = 1
+
+  [es_yaml.path]
+    data = "/hab/svc/elasticsearch-odfe/data"
+    logs = "/hab/svc/elasticsearch-odfe/logs"
+
+  [es_yaml.opendistro_security]
+    allow_unsafe_democertificates = "true"
+# These are the dns we use for our generated certificates. Override if you're generating your own
+    nodes_dn = [ "CN=node,O=Chef Software Inc,L=Seattle,ST=Washington,C=US" ]
+    [es_yaml.opendistro_security.authcz]
+      admin_dn = [ "CN=admin,O=Chef Software Inc,L=Seattle,ST=Washington,C=US" ]
+    [es_yaml.opendistro_security.ssl]
+      [es_yaml.opendistro_security.ssl.http]
+        enabled = true
+        pemcert_filepath = "certificates/odfe-node.pem"
+        pemkey_filepath = "certificates/odfe-node.key"
+        pemtrustedcas_filepath = "certificates/MyRootCA.pem"
+      [es_yaml.opendistro_security.ssl.transport]
+        enabled = true
+        pemcert_filepath = "certificates/odfe-node.pem"
+        pemkey_filepath = "certificates/odfe-node.key"
+        pemtrustedcas_filepath = "certificates/MyRootCA.pem"
+        enforce_hostname_verification = false
+
+# Fill these in in your user.toml to override automatic SSL Cert generation
+[opendistro_ssl]
+
+# root pem cert that signed the two cert/key pairs below
+rootCA = """
+-----BEGIN CERTIFICATE-----
+MIIDlTCCAn2gAwIBAgIJALOO4KZf7e/AMA0GCSqGSIb3DQEBCwUAMGExCzAJBgNV
+BAYTAlVTMRMwEQYDVQQIDApXYXNoaW5ndG9uMRAwDgYDVQQHDAdTZWF0dGxlMRow
+GAYDVQQKDBFDaGVmIFNvZnR3YXJlIEluYzEPMA0GA1UEAwwGcm9vdGNhMB4XDTIw
+MDcyNzE0MjE1MVoXDTMwMDcyNTE0MjE1MVowYTELMAkGA1UEBhMCVVMxEzARBgNV
+BAgMCldhc2hpbmd0b24xEDAOBgNVBAcMB1NlYXR0bGUxGjAYBgNVBAoMEUNoZWYg
+U29mdHdhcmUgSW5jMQ8wDQYDVQQDDAZyb290Y2EwggEiMA0GCSqGSIb3DQEBAQUA
+A4IBDwAwggEKAoIBAQDEZPM1eP0ZVRozv8ZHcZlVwL/DnjJNH598Fc46HhUo6GSA
+UhP+0FNT7KrF1OBipZ+sGYs/iSxE8hUC7Imta1mSSNxwm5o0cObCu7xByB3a19jD
+pAtVZEow+8bTcWOgEXq3XyDP+p920otrEqZ6sSKWNjrazMxRI3NVeHozbNNjtgF5
+9oT5BhPBwX0o+sXw1ZSmeUR7EA9pHe0b1Tj3vNdXNsUGTZ/lZRDkkIyVGYyNgwkg
+rK6teBWWoP8y7omRcNUujXzMnUa/pbb6KLasjseeG5FzvHWoHhQ+6tXLK21/yWXZ
+fN7yd5/9JTEmovgdHt7UHpMfql74ylwk+IiTuKXVAgMBAAGjUDBOMB0GA1UdDgQW
+BBT6/b+2zjwcnbElL4SCkUWJYPqUEjAfBgNVHSMEGDAWgBT6/b+2zjwcnbElL4SC
+kUWJYPqUEjAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB9TZQps98c
+BE++67JyQSbKXiIdBXIzYoEQMWvwSwN9nInBeGl6xnliXx9V9SDL9l11RQflEYJE
+gbGciDIce0p9tSUXj2SETfftn11uvUsuJuIrQSWfhfRJH5YeoK80vtgK2zUxICp9
+LnsknhA0SVdjrWYE6SroZxDvUTrF863HcLu8RPPV2D1LAiWWbkuX/UbCpIpjTRkC
+ZQ144C5C0zxVRVYweNgikA9Tw+a37cxJlccOEYxhyyEdXLwcotrCajkR6Oy3JsQS
+hwg9kvzp8mr5RKisxI5UDSvunyTSg2ThyRfB5sXuVKufzTyPpB/HzQrEcz3NZ6bl
+ae4VBarVD9u2
+-----END CERTIFICATE-----
+"""
+
+# Certificate used for admin actions against https://9200
+admin_cert   = """
+-----BEGIN CERTIFICATE-----
+MIIDPTCCAiUCCQDgSqW7CB5juTANBgkqhkiG9w0BAQsFADBhMQswCQYDVQQGEwJV
+UzETMBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTEaMBgGA1UE
+CgwRQ2hlZiBTb2Z0d2FyZSBJbmMxDzANBgNVBAMMBnJvb3RjYTAeFw0yMDA3Mjcx
+NDIxNTFaFw0yNzEwMjkxNDIxNTFaMGAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApX
+YXNoaW5ndG9uMRAwDgYDVQQHDAdTZWF0dGxlMRowGAYDVQQKDBFDaGVmIFNvZnR3
+YXJlIEluYzEOMAwGA1UEAwwFYWRtaW4wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQDRKTPjT+/HjZaP95Nxwe0R3ORyx4kwzgqL2Mevpk1JDmzufHcNomqn
+UGaNoReZgJ7zdGdxWVSjinjv5SpvNnvv/VvoY/zmXfwNSiK1bnSPYf+TnD9EhLp+
+PeNCQMZ1S9A1o1QQPDaoMPL4yAAn8T3z5MSBmeD4+1Zuh/iErVy70MGKtNAqrr4k
+VnNPqQoyOhyPRZGJX1tT7ufdWLtZ3QoTffqHCEw/64gypqr3kfjAZjz41KFFXAeo
+CZpifq9AeMb7r1Lg42wPmvYcvh8UXN8rIjSxHgRFGfJ/DrUqABDYs0DNMQbNAIi/
+Fh5C5aYnrDHjONnIwrNiTseUGFEUf3QFAgMBAAEwDQYJKoZIhvcNAQELBQADggEB
+AHM1xY5fus+6PUq5ZiDFJKZlrE3TJQX35UwaJlRq7ModRPvYH0nW9RbQS09p++b/
+DGCn8TLxFVQr0i0HYbsnLV/kPhHlvaUTqEjiIcbIkfE4uaAFQiRv3G1oYphdLdOf
+Uuz/9El4P6z240/hPcTTYd1rwRS/j6SWU5Jfgr+rfi6Wk/5Nf+EgHkc6FXDAttoZ
+kfd4bKP6bDQwh4cQMBUlO+CTusCLKsNDLsSZUzOm6OsvFK/aEM9oUON2x2mhzuJA
+4qvB5cdkUeXFbHJSRL165jtYtqQqlY6hdvBpk1aaepErvoFZwPNaAGH2PUQB3++K
+w3QxjQXyELIJ2MpMpV3k8ds=
+-----END CERTIFICATE-----
+"""
+
+admin_key    = """
+-----BEGIN PRIVATE KEY-----
+MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDRKTPjT+/HjZaP
+95Nxwe0R3ORyx4kwzgqL2Mevpk1JDmzufHcNomqnUGaNoReZgJ7zdGdxWVSjinjv
+5SpvNnvv/VvoY/zmXfwNSiK1bnSPYf+TnD9EhLp+PeNCQMZ1S9A1o1QQPDaoMPL4
+yAAn8T3z5MSBmeD4+1Zuh/iErVy70MGKtNAqrr4kVnNPqQoyOhyPRZGJX1tT7ufd
+WLtZ3QoTffqHCEw/64gypqr3kfjAZjz41KFFXAeoCZpifq9AeMb7r1Lg42wPmvYc
+vh8UXN8rIjSxHgRFGfJ/DrUqABDYs0DNMQbNAIi/Fh5C5aYnrDHjONnIwrNiTseU
+GFEUf3QFAgMBAAECggEBAKzIx8eBUohcC8P0doYj+G6oNsQm18tMemPaeeM9k1zF
+oPFGOqc1w7th7MYVDMTO/wAI6ic173iGPK+YdXyX2rx/ZPxOFS5M95oW4yNUEtAb
+2aCcE5vLta/x+hnSHt/o+CBHQ3uB8njwrtcbiR116YLgOgECGFo2bskyY/deq1uu
+cscE9QGmtLLjcm9qQREKdF22Bvjg7Yznj9IPpTZN9AhFFZGEc/kdljsX65+s3k9s
+39nWYFlcJcP4rYQNxoXtlNiDOzRKT7ra6oxvwszpHcH7Z25Q+d4wF8IIKuxU2UPl
+UkecpfdurKeHZl6JUjMBIzzX9fZILoXYF41KflP7UeUCgYEA6xunn+2S/dq4YI/x
+H/0wRa1U6EV9afmavJImo1/CyezFpnr7bOMe7z6fOyYicKuyVNFe/7MvYoC7/oTK
+vYWe000VaeXtMS0BpWDgbmjxdTf/X5G12jbtfn8uWAhYlQKWUvkBZWx3uk93xcar
+oewFLcPrGmj2o4Bv4MnHldF8v8cCgYEA479Kt2lTnN9ccaNDa2jBzqKakJ2Wt/te
+f2NtaYpQS+o1PmH1dYP5BoU6f0mD7kEgdZUP2j+15V8lPR73GfUM099coka64H43
+v7dnzRDzqheil33o/3zuXM9dy0WLjwflt6ifQUX08ZF9MHyRjF8oWwKD5mmBEpUK
+8QkI7hKdhdMCgYEAlw8BuKPwmeJ6LLDPgHoxFdO0hjh/yCNz5E0TPk083nie1cSW
+3vNe4OEfdeWeoz3uKskLfMcoXuXP5Ex15yd/UMxqQcxVhg8gy51fFhGfcm00S7dX
+XImGNoyIvk8+ex9abp1G5F+43aBJmG15wWPgP/Ntj155ebwAJjH/Zqdeu+kCgYAY
+hhO0lknjnYWl0u/ClCAycP31zpJZM18kln9Emxk0Y37iPcghpFlfY18+L5teP3MQ
+VkHDvZKHpWwsHbZ7/BAqjGW8L6OV4uF76nLp+QZT7YGbkHpTcI92PPobllyFxVLu
+KOElNTRAAuuZGgDOPbzpt+aeHARDDPuFovRsNmLx8wKBgQDb6HDAbcFEqF4jwinR
+yUNAzZ6wu8wXCx1I67REGR64vd8y+eYm2xTP4IDcFsbQg+9rD+IFdHCvFgIfO/H8
+a9ovpkD8VYgFPA+BF5gHLOQSx0yJlDEN9cBRLA88JPDGb4+nAjDEuQ7R46SSbJRi
+V7jDNEgUFFfi38b28RF9L/6/Mg==
+-----END PRIVATE KEY-----
+"""
+
+# Certificate used for intracluster ssl on port 9300, also used by securityadmin.sh
+node_cert    = """
+-----BEGIN CERTIFICATE-----
+MIIDPDCCAiQCCQDgSqW7CB5juDANBgkqhkiG9w0BAQsFADBhMQswCQYDVQQGEwJV
+UzETMBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTEaMBgGA1UE
+CgwRQ2hlZiBTb2Z0d2FyZSBJbmMxDzANBgNVBAMMBnJvb3RjYTAeFw0yMDA3Mjcx
+NDIxNTFaFw0zMDA3MjUxNDIxNTFaMF8xCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApX
+YXNoaW5ndG9uMRAwDgYDVQQHDAdTZWF0dGxlMRowGAYDVQQKDBFDaGVmIFNvZnR3
+YXJlIEluYzENMAsGA1UEAwwEbm9kZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAKuyY0R8GNs56STOT2c1QMblaUvCMLQYm24nngGNih+h3mukMeDOb8H7
+xdAh2rtvAZ1uMV/YxJHWPIAeXgJIRwrBYwwLXGTm2qYwbVlLiXiUB522c8mIrNWx
+6Br43IKGEj/b++JWVfvas0EAvMTZD5Wqmsvbpe97An1eDpe/KH4drat82XBwLUvA
+RsF3CplyXg26MR2cvMl8MVhXI8NMPaSFcW9CAtCvfADVEv+ycAFyhq2wgcR50imv
+2alpH/MxeMWzhnjUAI00GjnR0O0ws7E6KP+lK5l4EpSm+Coph8xs0O0nabSLikbj
+ajQP6VZQvwQ5ubJaUv3/crFi58Jc20MCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEA
+hj52qic5UOTTn7kcyFOW3roR7WvmcJggelTNRg1TuItpBfAWCaG1Ch1HIvjpMMzU
+4WcRp7syxyJlnBscTmRB8Zzmfh6b/AvAnGsiewzuyVNyAFQwedgPwNkNCkfxRrGF
+fDXlW+Kh8BgooNDvd4LsHjyO6wnpCOXGFvbqCiDoNYdeq/gbgnXkRMpHNICeUYJm
+LaCNNTC8oSRuMJfILxbvrCHjnEskTuYlE9+b1y1yl41st51xNO46zc//nu55YL5a
+4ww3MlUpArtrvT5otl9vCkEc2T1+QJ5lImL4I+22EV9Mq7mvQbQHAN+83jdt4vT4
+sQcIZOqmX5m8b1vjZ1h2yQ==
+-----END CERTIFICATE-----
+"""
+
+node_key     = """
+-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCrsmNEfBjbOekk
+zk9nNUDG5WlLwjC0GJtuJ54BjYofod5rpDHgzm/B+8XQIdq7bwGdbjFf2MSR1jyA
+Hl4CSEcKwWMMC1xk5tqmMG1ZS4l4lAedtnPJiKzVsega+NyChhI/2/viVlX72rNB
+ALzE2Q+VqprL26XvewJ9Xg6Xvyh+Ha2rfNlwcC1LwEbBdwqZcl4NujEdnLzJfDFY
+VyPDTD2khXFvQgLQr3wA1RL/snABcoatsIHEedIpr9mpaR/zMXjFs4Z41ACNNBo5
+0dDtMLOxOij/pSuZeBKUpvgqKYfMbNDtJ2m0i4pG42o0D+lWUL8EObmyWlL9/3Kx
+YufCXNtDAgMBAAECggEAdW09wxr0jQrgT1HisH2VXfKMv0mCscmalA34XKuG6fd0
+/T2A93V4rb0aHyzoQgS7oAY7Mog4eF2DZ0Rdm0X/gHWe3h/vAvt4Uu0P/GBTFup3
+AwBD1HPrcQOJ8Nh/R62WUaKMdNIDYIrEyhJNCHxD0mKqF/6TUGRa4Y8wf8w3T3ix
+p/Bz+jDF9zIad8s/vPL1ps5updXQn8OgmBGdl+pLN/xl0QOUxyQe7PANj/JvScju
+q9rnlZJ6KYNOHLEL3v2hL/BrFQTnWggR/oCEl8PapieuAf5dRjhWZ2+xZ3EQaljr
++LsFZukQOQPugiuy3PvlXdujIv1P1CNL3tOGfCIiMQKBgQDch64m48kMNEuzQlGB
+Y8X5xIdFeCZ95/Al0caF6UgX4vpVacFhYNl+vuoLe4QmW9pQjWfac/hMvadpVBYL
+MO7IpFwLulKmuOWoC6x7W4R+JLwl7arejqn3C9fcrIPzmbdOvYWTl+L6pxp3UGSR
+QinTz7LOS7ev15bXBIeXQyenHQKBgQDHUACSEf0hwRvbHoV66C/+BHpXCDX0Xxhr
+dRkWsqRTQIjfJuJAn4WJd+LQOqyPvKUVHuSC/JqbhoaedZCf8olrAD1/cTTH2ZZO
+xviBGa7v2Ihzn155G9Ds6ykAVPp2uAHhcbJpC7/y46XcM+cr774iScGvW7ZfG0mj
+8drWrzQd3wKBgQCRUc9OzTeElUl0/LSc4NRqvDivbHdg7F/xbAS35XueUfHIKwJF
+Wv63aLLtkh0I8eowvp269ESgvTD+VWyZP0t6Z+RHziX8u0aKr/ae6zWpsidRjwXT
+1orlwqYiQoRJF/gVKQpGsgXeShNEoHNEzSam7uzSyE5oz1YUpmV7JcOReQKBgAGV
+oDuJCxMenuMSDguZFvCVBof0l8E2lFIeXzGv/+BtjekAPSI4Ym5iVppDLSYDYOiX
+E0f7TBtaaW2PD7RF0FPab6K4uquwDiLYMBeOpbZgaU1KAg1CbFnF0NCg3FDfS5yI
+M9vj7QW4S5RBkV/nCwLoxTJorz14URCNlqjIQcjPAoGBAKtFxyUukkVrMh53tk1u
+W+lDi5KH2QKp+viubQ1FeZuWlWcd4pKFM5/zapE3tPuJXIc7UGrjP5ub0Q3ti7Zi
+ripuE6gTDjEzo/6IlyV7zugrcJ4EL1wObyGIwqenAL2QyjJaRNN9ZnSv7tUkwRmI
+DfEZWtlARdPxprVoKkuv3/P5
+-----END PRIVATE KEY-----
+"""
+
+# Runtime settings for jvm.options and the systemd service
+[runtime]
+  max_open_files = ""
+  max_locked_memory = ""
+  es_startup_sleep_time = ""
+  # This config variable becomes the value of ES_JAVA_OPTS.
+  # Note: JVM values for -Xms and -Xmx are auto calculated in the run hook.
+  # Any value defined here will override the calculation in the hook.
+  es_java_opts = ""
+
+# This section contains any settings that need to applied on startup for opendistro.
+# Any values put under this hash will be rendered into yaml and applied with
+# securityadmin.sh. These should be your basic admin credentials, as long term you
+# can manage your creds outside of habitat with securityadmin.sh.
+[odconfig_yaml]

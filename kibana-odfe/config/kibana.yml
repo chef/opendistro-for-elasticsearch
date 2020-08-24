@@ -1,0 +1,1 @@
+{{toYaml cfg.kibana_yaml}}

@@ -1,0 +1,104 @@
+# Certificate used for kibana interface
+ssl_cert = """
+-----BEGIN CERTIFICATE-----
+MIIDPDCCAiQCCQDgSqW7CB5juDANBgkqhkiG9w0BAQsFADBhMQswCQYDVQQGEwJV
+UzETMBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTEaMBgGA1UE
+CgwRQ2hlZiBTb2Z0d2FyZSBJbmMxDzANBgNVBAMMBnJvb3RjYTAeFw0yMDA3Mjcx
+NDIxNTFaFw0zMDA3MjUxNDIxNTFaMF8xCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApX
+YXNoaW5ndG9uMRAwDgYDVQQHDAdTZWF0dGxlMRowGAYDVQQKDBFDaGVmIFNvZnR3
+YXJlIEluYzENMAsGA1UEAwwEbm9kZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAKuyY0R8GNs56STOT2c1QMblaUvCMLQYm24nngGNih+h3mukMeDOb8H7
+xdAh2rtvAZ1uMV/YxJHWPIAeXgJIRwrBYwwLXGTm2qYwbVlLiXiUB522c8mIrNWx
+6Br43IKGEj/b++JWVfvas0EAvMTZD5Wqmsvbpe97An1eDpe/KH4drat82XBwLUvA
+RsF3CplyXg26MR2cvMl8MVhXI8NMPaSFcW9CAtCvfADVEv+ycAFyhq2wgcR50imv
+2alpH/MxeMWzhnjUAI00GjnR0O0ws7E6KP+lK5l4EpSm+Coph8xs0O0nabSLikbj
+ajQP6VZQvwQ5ubJaUv3/crFi58Jc20MCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEA
+hj52qic5UOTTn7kcyFOW3roR7WvmcJggelTNRg1TuItpBfAWCaG1Ch1HIvjpMMzU
+4WcRp7syxyJlnBscTmRB8Zzmfh6b/AvAnGsiewzuyVNyAFQwedgPwNkNCkfxRrGF
+fDXlW+Kh8BgooNDvd4LsHjyO6wnpCOXGFvbqCiDoNYdeq/gbgnXkRMpHNICeUYJm
+LaCNNTC8oSRuMJfILxbvrCHjnEskTuYlE9+b1y1yl41st51xNO46zc//nu55YL5a
+4ww3MlUpArtrvT5otl9vCkEc2T1+QJ5lImL4I+22EV9Mq7mvQbQHAN+83jdt4vT4
+sQcIZOqmX5m8b1vjZ1h2yQ==
+-----END CERTIFICATE-----
+"""
+
+ssl_key = """
+-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCrsmNEfBjbOekk
+zk9nNUDG5WlLwjC0GJtuJ54BjYofod5rpDHgzm/B+8XQIdq7bwGdbjFf2MSR1jyA
+Hl4CSEcKwWMMC1xk5tqmMG1ZS4l4lAedtnPJiKzVsega+NyChhI/2/viVlX72rNB
+ALzE2Q+VqprL26XvewJ9Xg6Xvyh+Ha2rfNlwcC1LwEbBdwqZcl4NujEdnLzJfDFY
+VyPDTD2khXFvQgLQr3wA1RL/snABcoatsIHEedIpr9mpaR/zMXjFs4Z41ACNNBo5
+0dDtMLOxOij/pSuZeBKUpvgqKYfMbNDtJ2m0i4pG42o0D+lWUL8EObmyWlL9/3Kx
+YufCXNtDAgMBAAECggEAdW09wxr0jQrgT1HisH2VXfKMv0mCscmalA34XKuG6fd0
+/T2A93V4rb0aHyzoQgS7oAY7Mog4eF2DZ0Rdm0X/gHWe3h/vAvt4Uu0P/GBTFup3
+AwBD1HPrcQOJ8Nh/R62WUaKMdNIDYIrEyhJNCHxD0mKqF/6TUGRa4Y8wf8w3T3ix
+p/Bz+jDF9zIad8s/vPL1ps5updXQn8OgmBGdl+pLN/xl0QOUxyQe7PANj/JvScju
+q9rnlZJ6KYNOHLEL3v2hL/BrFQTnWggR/oCEl8PapieuAf5dRjhWZ2+xZ3EQaljr
++LsFZukQOQPugiuy3PvlXdujIv1P1CNL3tOGfCIiMQKBgQDch64m48kMNEuzQlGB
+Y8X5xIdFeCZ95/Al0caF6UgX4vpVacFhYNl+vuoLe4QmW9pQjWfac/hMvadpVBYL
+MO7IpFwLulKmuOWoC6x7W4R+JLwl7arejqn3C9fcrIPzmbdOvYWTl+L6pxp3UGSR
+QinTz7LOS7ev15bXBIeXQyenHQKBgQDHUACSEf0hwRvbHoV66C/+BHpXCDX0Xxhr
+dRkWsqRTQIjfJuJAn4WJd+LQOqyPvKUVHuSC/JqbhoaedZCf8olrAD1/cTTH2ZZO
+xviBGa7v2Ihzn155G9Ds6ykAVPp2uAHhcbJpC7/y46XcM+cr774iScGvW7ZfG0mj
+8drWrzQd3wKBgQCRUc9OzTeElUl0/LSc4NRqvDivbHdg7F/xbAS35XueUfHIKwJF
+Wv63aLLtkh0I8eowvp269ESgvTD+VWyZP0t6Z+RHziX8u0aKr/ae6zWpsidRjwXT
+1orlwqYiQoRJF/gVKQpGsgXeShNEoHNEzSam7uzSyE5oz1YUpmV7JcOReQKBgAGV
+oDuJCxMenuMSDguZFvCVBof0l8E2lFIeXzGv/+BtjekAPSI4Ym5iVppDLSYDYOiX
+E0f7TBtaaW2PD7RF0FPab6K4uquwDiLYMBeOpbZgaU1KAg1CbFnF0NCg3FDfS5yI
+M9vj7QW4S5RBkV/nCwLoxTJorz14URCNlqjIQcjPAoGBAKtFxyUukkVrMh53tk1u
+W+lDi5KH2QKp+viubQ1FeZuWlWcd4pKFM5/zapE3tPuJXIc7UGrjP5ub0Q3ti7Zi
+ripuE6gTDjEzo/6IlyV7zugrcJ4EL1wObyGIwqenAL2QyjJaRNN9ZnSv7tUkwRmI
+DfEZWtlARdPxprVoKkuv3/P5
+-----END PRIVATE KEY-----
+"""
+
+# CA of Elasticsearch's SSL certificate, can be used if you need to trust
+# self-signed certificates
+elasticsearch_ca = """
+-----BEGIN CERTIFICATE-----
+MIIDlTCCAn2gAwIBAgIJALOO4KZf7e/AMA0GCSqGSIb3DQEBCwUAMGExCzAJBgNV
+BAYTAlVTMRMwEQYDVQQIDApXYXNoaW5ndG9uMRAwDgYDVQQHDAdTZWF0dGxlMRow
+GAYDVQQKDBFDaGVmIFNvZnR3YXJlIEluYzEPMA0GA1UEAwwGcm9vdGNhMB4XDTIw
+MDcyNzE0MjE1MVoXDTMwMDcyNTE0MjE1MVowYTELMAkGA1UEBhMCVVMxEzARBgNV
+BAgMCldhc2hpbmd0b24xEDAOBgNVBAcMB1NlYXR0bGUxGjAYBgNVBAoMEUNoZWYg
+U29mdHdhcmUgSW5jMQ8wDQYDVQQDDAZyb290Y2EwggEiMA0GCSqGSIb3DQEBAQUA
+A4IBDwAwggEKAoIBAQDEZPM1eP0ZVRozv8ZHcZlVwL/DnjJNH598Fc46HhUo6GSA
+UhP+0FNT7KrF1OBipZ+sGYs/iSxE8hUC7Imta1mSSNxwm5o0cObCu7xByB3a19jD
+pAtVZEow+8bTcWOgEXq3XyDP+p920otrEqZ6sSKWNjrazMxRI3NVeHozbNNjtgF5
+9oT5BhPBwX0o+sXw1ZSmeUR7EA9pHe0b1Tj3vNdXNsUGTZ/lZRDkkIyVGYyNgwkg
+rK6teBWWoP8y7omRcNUujXzMnUa/pbb6KLasjseeG5FzvHWoHhQ+6tXLK21/yWXZ
+fN7yd5/9JTEmovgdHt7UHpMfql74ylwk+IiTuKXVAgMBAAGjUDBOMB0GA1UdDgQW
+BBT6/b+2zjwcnbElL4SCkUWJYPqUEjAfBgNVHSMEGDAWgBT6/b+2zjwcnbElL4SC
+kUWJYPqUEjAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB9TZQps98c
+BE++67JyQSbKXiIdBXIzYoEQMWvwSwN9nInBeGl6xnliXx9V9SDL9l11RQflEYJE
+gbGciDIce0p9tSUXj2SETfftn11uvUsuJuIrQSWfhfRJH5YeoK80vtgK2zUxICp9
+LnsknhA0SVdjrWYE6SroZxDvUTrF863HcLu8RPPV2D1LAiWWbkuX/UbCpIpjTRkC
+ZQ144C5C0zxVRVYweNgikA9Tw+a37cxJlccOEYxhyyEdXLwcotrCajkR6Oy3JsQS
+hwg9kvzp8mr5RKisxI5UDSvunyTSg2ThyRfB5sXuVKufzTyPpB/HzQrEcz3NZ6bl
+ae4VBarVD9u2
+-----END CERTIFICATE-----
+"""
+
+[kibana_yaml]
+  [kibana_yaml.server]
+    port = "5601"
+    host = "0.0.0.0"
+
+    [kibana_yaml.server.ssl]
+      enabled = true
+      certificate =  "/hab/svc/kibana-odfe/config/certificates/kibana.pem"
+      key = "/hab/svc/kibana-odfe/config/certificates/kibana.key"
+
+  [kibana_yaml.elasticsearch]
+    url = "https://localhost:9200"
+    username = "admin"
+    password = "admin"
+    [kibana_yaml.elasticsearch.ssl]
+      certificateAuthorities = "/hab/svc/kibana-odfe/config/certificates/CA.pem"
+
+  [kibana_yaml.path]
+    data = "/hab/svc/kibana-odfe/data/"
+
+  [kibana_yaml.pid]
+    file = "/hab/svc/kibana-odfe/var/kibana.pid"

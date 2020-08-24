@@ -1,0 +1,31 @@
+#!/bin/sh
+
+exec 2>&1
+
+mkdir -p "{{pkg.svc_var_path}}/logs"
+mkdir -p "{{pkg.svc_var_path}}/data"
+
+#This section generates SSL keys if they aren't already configured
+
+{{#unless cfg.ssl_key}}
+  export RANDFILE={{pkg.svc_config_path}}/certificates/.rnd
+  mkdir -p {{pkg.svc_config_path}}/certificates
+
+  #First, create a private key for the CA:
+  openssl genrsa -out {{pkg.svc_config_path}}/certificates/CA.key 2048
+
+  #Create the CA and enter the Organization details:
+  openssl req -x509 -new -key {{pkg.svc_config_path}}/certificates/CA.key -sha256 -out {{pkg.svc_config_path}}/certificates/CA.pem -subj '/C=US/ST=Washington/L=Seattle/O=Chef Software Inc/CN=chefrootca'
+
+  #the rsa keys
+  openssl genrsa -out {{pkg.svc_config_path}}/certificates/kibana-pkcs12.key 2048
+
+  #Convert these to PKCS#5 v1.5 to work correctly with the JDK.
+  openssl pkcs8 -v1 "PBE-SHA1-3DES" -in "{{pkg.svc_config_path}}/certificates/kibana-pkcs12.key" -topk8 -out "{{pkg.svc_config_path}}/certificates/kibana.key" -nocrypt
+
+  #Create the CSR and enter the organization and server details for the kibana key
+  openssl req -new -key {{pkg.svc_config_path}}/certificates/kibana.key -out {{pkg.svc_config_path}}/certificates/kibana.csr -subj '/C=US/ST=Washington/L=Seattle/O=Chef Software Inc/CN=chefnode'
+
+  #Use the CSR to generate the signed kibana Certificate:
+  openssl x509 -req -in {{pkg.svc_config_path}}/certificates/kibana.csr -CA {{pkg.svc_config_path}}/certificates/CA.pem -CAkey {{pkg.svc_config_path}}/certificates/CA.key -CAcreateserial -out {{pkg.svc_config_path}}/certificates/kibana.pem -sha256
+{{/unless}}
