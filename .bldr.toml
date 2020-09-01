@@ -1,8 +1,8 @@
-[filebeat]
-plan_path = "filebeat"
+[elasticsearch-odfe]
+plan_path = "elasticsearch-odfe"
 [journalbeat]
 plan_path = "journalbeat"
-[kibana]
-plan_path = "kibana"
+[kibana-odfe]
+plan_path = "kibana-odfe"
 [metricbeat]
 plan_path = "metricbeat"
