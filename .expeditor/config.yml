@@ -1,7 +1,7 @@
 # Documentation available at https://expeditor.chef.io/docs/getting-started/
 ---
 project:
-  alias: opendistro-for-elasticsearch
+  alias: elasticsearch-backend
 
 slack:
   notify_channel: _a2_ha_backend
