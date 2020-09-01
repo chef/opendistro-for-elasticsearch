@@ -1,7 +1,7 @@
 pkg_name=metricbeat
-pkg_origin=open-distro
+pkg_origin="chef"
 pkg_version=6.8.6
-pkg_maintainer="echohack <echohack@chef.io>"
+pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Apache-2.0")
 pkg_deps=(core/glibc)
 pkg_build_deps=(

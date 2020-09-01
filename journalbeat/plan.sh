@@ -1,7 +1,7 @@
 pkg_name=journalbeat
-pkg_origin=open-distro
+pkg_origin=chef
 pkg_version=6.8.6
-pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
+pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Apache-2.0")
 pkg_deps=(core/glibc core/systemd)
 pkg_build_deps=(

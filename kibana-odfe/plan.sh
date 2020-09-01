@@ -4,9 +4,9 @@ KIBANA_PKG_URL="https://artifacts.elastic.co/downloads/kibana/kibana-oss-$KIBANA
 pkg_version="0.10.0.4"
 opendistro_version="0.10.1.2"
 nvm_version="0.35.3"
-pkg_origin=open-distro
+pkg_origin="chef"
 pkg_license=('Apache-2.0')
-pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
+pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_description="Kibana is a browser based analytics and search dashboard for Elasticsearch."
 # Kibana has the undesirable behaviour of using an unconfigarable temp dir that's relative to its package path.
 # This resolves to $pkg_path/optimize and is not writable by anyone other than root
