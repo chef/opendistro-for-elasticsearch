@@ -1,4 +1,4 @@
-https://badge.buildkite.com/4210051965f36963972d6e0145cb0c2ea60346ba521db7704a.svg?branch=master - Habitat Packages
+[![Build Status](https://badge.buildkite.com/4210051965f36963972d6e0145cb0c2ea60346ba521db7704a.svg?branch=master)](https://buildkite.com/chef/chef-opendistro-for-elasticsearch-master-habitat-build) - Habitat Packages
 
 Note on building journalbeat and metricbeat:
 
