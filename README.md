@@ -1,3 +1,5 @@
+https://badge.buildkite.com/4210051965f36963972d6e0145cb0c2ea60346ba521db7704a.svg?branch=master - Habitat Packages
+
 Note on building journalbeat and metricbeat:
 
 Version 6.8.x of these beats contain incompatible or non-existing dependencies. Fortunately, we do not use these dependencies. The missing dependencies include:
