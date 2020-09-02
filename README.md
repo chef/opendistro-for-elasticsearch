@@ -10,7 +10,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/master/ingest.html
 /hab/cache/src/github.com/elastic/beats/libbeat/processors/script/javascript/session.go:267:14: s.Runtime().RegisterSimpleMapType undefined (type *goja.Runtime has no field or method RegisterSimpleMapType)
 ```
 
-- Aerospike is a Go client library for connecting to the aerospike nosql database. We do not use this functionality
+- Aerospike is a Go client library for connecting to the aerospike nosql database. We do not use this functionality..
 
 https://www.aerospike.com/docs/client/go/examples.html
 
