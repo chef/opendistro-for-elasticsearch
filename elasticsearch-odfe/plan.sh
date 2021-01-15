@@ -1,4 +1,4 @@
- This is the version that the current ODFE package depends on
+#This is the version that the current ODFE package depends on
 ELASTICSEARCH_VERSION="7.9.1"
 ELASTICSEARCH_PKG_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ELASTICSEARCH_VERSION-linux-aarch64.tar.gz"
 pkg_version=1.11.0.0
@@ -89,4 +89,8 @@ do_install() {
     mkdir -p "${pkg_prefix}/plugins/${plugin}"
     unzip "${HAB_CACHE_SRC_PATH}/${plugin}.zip" -d "${pkg_prefix}/plugins/${plugin}"
   done
+}
+
+do_strip() {
+	
 }
