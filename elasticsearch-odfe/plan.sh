@@ -1,15 +1,15 @@
 # This is the version that the current ODFE package depends on
-ELASTICSEARCH_VERSION="7.9.1"
-ELASTICSEARCH_PKG_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-$ELASTICSEARCH_VERSION-linux-x86_64.tar.gz"
-pkg_version=1.11.0.0
+ELASTICSEARCH_VERSION="6.8.6"
+ELASTICSEARCH_PKG_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-$ELASTICSEARCH_VERSION.tar.gz"
+pkg_version=0.10.1.2
 ELASTICSEARCH_PLUGINS=(
   repository-s3
   repository-gcs
 )
 pkg_name="elasticsearch-odfe"
 pkg_description="Open Distro for Elasticsearch plugins"
-pkg_origin="ff"
-vendor_origin="ff"
+pkg_origin="chef"
+vendor_origin="chef"
 pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Chef-MLSA")
 pkg_upstream_url="https://github.com/opendistro-for-elasticsearch"
@@ -45,7 +45,7 @@ pkg_exports=(
 pkg_exposes=(http-port transport-port)
 
 do_download() {
-  wget -O "${HAB_CACHE_SRC_PATH}/elasticsearch-oss-${ELASTICSEARCH_VERSION}-linux-x86_64.tar.gz" "${ELASTICSEARCH_PKG_URL}"
+  wget -O "${HAB_CACHE_SRC_PATH}/elasticsearch-oss-${ELASTICSEARCH_VERSION}.tar.gz" "${ELASTICSEARCH_PKG_URL}"
   rm -rf ${HAB_CACHE_SRC_PATH}/security
   git clone https://github.com/opendistro-for-elasticsearch/security.git "${HAB_CACHE_SRC_PATH}/security"
 
@@ -56,7 +56,7 @@ do_download() {
 }
 
 do_unpack() {
-  tar -xzf "${HAB_CACHE_SRC_PATH}/elasticsearch-oss-${ELASTICSEARCH_VERSION}-linux-x86_64.tar.gz" -C "${HAB_CACHE_SRC_PATH}/"
+  tar -xzf "${HAB_CACHE_SRC_PATH}/elasticsearch-oss-${ELASTICSEARCH_VERSION}.tar.gz" -C "${HAB_CACHE_SRC_PATH}/"
 }
 
 do_build() {
@@ -73,14 +73,14 @@ do_build() {
 }
 
 do_install() {
-  install -vDm644 "${HAB_CACHE_SRC_PATH}/elasticsearch-${ELASTICSEARCH_VERSION}/README.asciidoc" "${pkg_prefix}/README.asciidoc"
+  install -vDm644 "${HAB_CACHE_SRC_PATH}/elasticsearch-${ELASTICSEARCH_VERSION}/README.textile" "${pkg_prefix}/README.textile"
   install -vDm644 "${HAB_CACHE_SRC_PATH}/elasticsearch-${ELASTICSEARCH_VERSION}/LICENSE.txt" "${pkg_prefix}/LICENSE.txt"
   install -vDm644 "${HAB_CACHE_SRC_PATH}/elasticsearch-${ELASTICSEARCH_VERSION}/NOTICE.txt" "${pkg_prefix}/NOTICE.txt"
 
   cp -a "${HAB_CACHE_SRC_PATH}/elasticsearch-${ELASTICSEARCH_VERSION}/"* "${pkg_prefix}/"
 
   # Delete unused binaries to save space
-  rm -f "${pkg_prefix}/bin/"*.bat "${pkg_prefix}/bin/"*.exe
+  rm "${pkg_prefix}/bin/"*.bat "${pkg_prefix}/bin/"*.exe
 
   fix_interpreter "${pkg_prefix}/bin/*" core/bash bin/bash
   mkdir -p "${pkg_prefix}/plugins/opendistro_security"
@@ -90,4 +90,3 @@ do_install() {
     unzip "${HAB_CACHE_SRC_PATH}/${plugin}.zip" -d "${pkg_prefix}/plugins/${plugin}"
   done
 }
-
