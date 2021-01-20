@@ -1,23 +1,23 @@
-#This is the version that the current ODFE package depends on
+# This is the version that the current ODFE package depends on
 ELASTICSEARCH_VERSION="7.9.1"
-ELASTICSEARCH_PKG_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ELASTICSEARCH_VERSION-linux-aarch64.tar.gz"
+ELASTICSEARCH_PKG_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-$ELASTICSEARCH_VERSION-linux-x86_64.tar.gz"
 pkg_version=1.11.0.0
 ELASTICSEARCH_PLUGINS=(
   repository-s3
   repository-gcs
 )
-pkg_name="ff-es-odfe"
+pkg_name="elasticsearch-odfe"
 pkg_description="Open Distro for Elasticsearch plugins"
-pkg_origin="ff"
-vendor_origin="ff"
+pkg_origin="chef"
+vendor_origin="chef"
 pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Chef-MLSA")
 pkg_upstream_url="https://github.com/opendistro-for-elasticsearch"
 pkg_build_deps=(
   core/coreutils
   core/git
-  core/openjdk11
   core/maven
+  core/openjdk11
   core/openssl
   core/zip
 )
@@ -45,7 +45,7 @@ pkg_exports=(
 pkg_exposes=(http-port transport-port)
 
 do_download() {
-  wget -O "${HAB_CACHE_SRC_PATH}/elasticsearch-${ELASTICSEARCH_VERSION}-linux-aarch64.tar.gz" "${ELASTICSEARCH_PKG_URL}"
+  wget -O "${HAB_CACHE_SRC_PATH}/elasticsearch-oss-${ELASTICSEARCH_VERSION}-linux-x86_64.tar.gz" "${ELASTICSEARCH_PKG_URL}"
   rm -rf ${HAB_CACHE_SRC_PATH}/security
   git clone https://github.com/opendistro-for-elasticsearch/security.git "${HAB_CACHE_SRC_PATH}/security"
 
@@ -56,7 +56,7 @@ do_download() {
 }
 
 do_unpack() {
-  tar -xzf "${HAB_CACHE_SRC_PATH}/elasticsearch-${ELASTICSEARCH_VERSION}-linux-aarch64.tar.gz" -C "${HAB_CACHE_SRC_PATH}/"
+  tar -xzf "${HAB_CACHE_SRC_PATH}/elasticsearch-oss-${ELASTICSEARCH_VERSION}-linux-x86_64.tar.gz" -C "${HAB_CACHE_SRC_PATH}/"
 }
 
 do_build() {
@@ -91,6 +91,3 @@ do_install() {
   done
 }
 
-do_strip() {
-	
-}
