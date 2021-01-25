@@ -12,6 +12,8 @@
       high = "90%"
       flood_stage = "95%"
 
+  [es_yaml.discovery]
+    seed_hosts = 127.0.0.1
 
   [es_yaml.http]
     port = 9200
