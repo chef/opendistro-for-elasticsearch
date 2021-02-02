@@ -12,8 +12,8 @@
       high = "90%"
       flood_stage = "95%"
 
-  [es_yaml.discovery]
-    seed_hosts = 127.0.0.1
+    [es_yaml.discovery]
+      type = "single-node" #For standalone
 
   [es_yaml.http]
     port = 9200
@@ -29,7 +29,7 @@
 
   [es_yaml.node]
     max_local_storage_nodes = 1
-
+  
   [es_yaml.path]
     data = "/hab/svc/elasticsearch-odfe/data"
     logs = "/hab/svc/elasticsearch-odfe/logs"
