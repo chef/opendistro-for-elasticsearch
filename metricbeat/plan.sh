@@ -1,5 +1,5 @@
 pkg_name=metricbeat
-pkg_origin="ff"
+pkg_origin="chef"
 pkg_version=7.9.1
 pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Apache-2.0")
