@@ -1,5 +1,5 @@
 pkg_name=journalbeat
-pkg_origin=ff
+pkg_origin=chef
 pkg_version=7.9.1
 pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Apache-2.0")
@@ -29,7 +29,7 @@ do_build() {
   pushd "${HAB_CACHE_SRC_PATH}/github.com/elastic/beats/journalbeat" > /dev/null || exit 1
   git checkout "v${pkg_version}" 
   CGO_CFLAGS="-I${SYSTEMD_INCLUDE_PATH}" go build github.com/elastic/beats/journalbeat || true
-  popd > /dev/null || exit 0  
+  popd > /dev/null || exit 1 
 }
 
 do_install() {
