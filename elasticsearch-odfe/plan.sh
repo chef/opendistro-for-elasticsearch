@@ -11,7 +11,7 @@ pkg_description="Open Distro for Elasticsearch plugins"
 pkg_origin="chef"
 vendor_origin="chef"
 pkg_maintainer="Chef Software Inc. <support@chef.io>"
-pkg_license=("Chef-MLSA")
+pkg_license=("Apache-2.0")
 pkg_upstream_url="https://github.com/opendistro-for-elasticsearch"
 pkg_build_deps=(
   core/coreutils
@@ -26,7 +26,6 @@ pkg_deps=(
   core/coreutils
   core/curl
   core/glibc
-  chef/mlsa
   core/openjdk11
   core/procps-ng
   core/wget
