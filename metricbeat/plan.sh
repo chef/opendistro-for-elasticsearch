@@ -18,6 +18,7 @@ pkg_upstream_url="https://elastic.co/products/beats/metricbeat"
 
 do_download() {
   GOPATH="$(dirname "${HAB_CACHE_SRC_PATH}")"
+  export GO111MODULE=off
   export GOPATH
   n=0
   until [ "$n" -ge 3 ]

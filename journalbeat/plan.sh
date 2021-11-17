@@ -19,6 +19,7 @@ pkg_upstream_url="https://github.com/elastic/beats/tree/master/journalbeat"
 do_build() {
   SYSTEMD_INCLUDE_PATH=$(pkg_path_for core/systemd)/include
   GOPATH="$(dirname "${HAB_CACHE_SRC_PATH}")"
+  export GO111MODULE=off
   export GOPATH
   n=0
   until [ "$n" -ge 3 ]
