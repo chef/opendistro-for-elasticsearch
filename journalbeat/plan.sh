@@ -1,6 +1,6 @@
 pkg_name=journalbeat
 pkg_origin=chef
-pkg_version=6.8.6
+pkg_version=6.8.22
 pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Apache-2.0")
 pkg_deps=(core/glibc core/systemd)
@@ -28,8 +28,9 @@ do_build() {
     n=$((n+1))
     sleep 1
   done
-  pushd "${HAB_CACHE_SRC_PATH}/github.com/elastic/beats/journalbeat" > /dev/null || exit 1
+  pushd "${HAB_CACHE_SRC_PATH}/github.com/elastic/beats" > /dev/null || exit 1
   git checkout "v${pkg_version}"
+  pushd "${HAB_CACHE_SRC_PATH}/github.com/elastic/beats/journalbeat" > /dev/null || exit 1
   CGO_CFLAGS="-I${SYSTEMD_INCLUDE_PATH}" go build github.com/elastic/beats/journalbeat
   popd > /dev/null || exit 1
 }
