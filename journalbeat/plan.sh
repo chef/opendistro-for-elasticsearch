@@ -28,8 +28,9 @@ do_build() {
     n=$((n+1))
     sleep 1
   done
-  pushd "${HAB_CACHE_SRC_PATH}/github.com/elastic/beats/journalbeat" > /dev/null || exit 1
+  pushd "${HAB_CACHE_SRC_PATH}/github.com/elastic/beats" > /dev/null || exit 1
   git checkout "v${pkg_version}"
+  pushd "${HAB_CACHE_SRC_PATH}/github.com/elastic/beats/journalbeat" > /dev/null || exit 1
   CGO_CFLAGS="-I${SYSTEMD_INCLUDE_PATH}" go build github.com/elastic/beats/journalbeat
   popd > /dev/null || exit 1
 }
