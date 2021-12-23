@@ -1,7 +1,7 @@
 # This is the version that the current ODFE package depends on
-ELASTICSEARCH_VERSION="6.8.6"
+ELASTICSEARCH_VERSION="6.8.22"
 ELASTICSEARCH_PKG_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-$ELASTICSEARCH_VERSION.tar.gz"
-pkg_version=0.10.1.2
+pkg_version=0.10.22.0
 ELASTICSEARCH_PLUGINS=(
   repository-s3
   repository-gcs
@@ -46,7 +46,7 @@ pkg_exposes=(http-port transport-port)
 do_download() {
   wget -O "${HAB_CACHE_SRC_PATH}/elasticsearch-oss-${ELASTICSEARCH_VERSION}.tar.gz" "${ELASTICSEARCH_PKG_URL}"
   rm -rf ${HAB_CACHE_SRC_PATH}/security
-  git clone https://github.com/opendistro-for-elasticsearch/security.git "${HAB_CACHE_SRC_PATH}/security"
+  git clone https://github.com/opensearch-project/security.git "${HAB_CACHE_SRC_PATH}/security"
 
 
   for plugin in ${ELASTICSEARCH_PLUGINS[@]}; do
@@ -64,7 +64,10 @@ do_build() {
 
   #Build the opendistro_security plugin itself
   pushd "${HAB_CACHE_SRC_PATH}/security" >/dev/null || exit 1
-  git checkout tags/v${pkg_version}
+  git checkout opendistro-0.10
+  sed -i s/0.10.1.2/${pkg_version}/ pom.xml plugin-descriptor.properties
+  sed -i s/6.8.6/${ELASTICSEARCH_VERSION}/ pom.xml plugin-descriptor.properties
+
   mvn compile -Dmaven.test.skip=true -P advanced
   mvn package -Dmaven.test.skip=true -P advanced
   mvn install -Dmaven.test.skip=true -P advanced
@@ -84,6 +87,7 @@ do_install() {
   fix_interpreter "${pkg_prefix}/bin/*" core/bash bin/bash
   mkdir -p "${pkg_prefix}/plugins/opendistro_security"
   unzip "${HAB_CACHE_SRC_PATH}/security/target/releases/opendistro_security-$pkg_version.zip" -d "${pkg_prefix}/plugins/opendistro_security"
+  chmod 755 "${pkg_prefix}/plugins/opendistro_security/tools/securityadmin.sh"
   for plugin in ${ELASTICSEARCH_PLUGINS[@]}; do
     mkdir -p "${pkg_prefix}/plugins/${plugin}"
     unzip "${HAB_CACHE_SRC_PATH}/${plugin}.zip" -d "${pkg_prefix}/plugins/${plugin}"

@@ -1,6 +1,6 @@
 pkg_name=metricbeat
 pkg_origin="chef"
-pkg_version=6.8.6
+pkg_version=6.8.22
 pkg_maintainer="Chef Software Inc. <support@chef.io>"
 pkg_license=("Apache-2.0")
 pkg_deps=(core/glibc)
