@@ -1,5 +1,5 @@
 pkg_name=kibana-odfe
-KIBANA_VERSION="6.8.22"
+KIBANA_VERSION="6.8.23"
 KIBANA_PKG_URL="https://artifacts.elastic.co/downloads/kibana/kibana-oss-$KIBANA_VERSION-linux-x86_64.tar.gz"
 pkg_version="0.10.1.1"
 opendistro_version="0.10.22.0"

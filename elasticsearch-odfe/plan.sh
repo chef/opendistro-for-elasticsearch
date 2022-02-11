@@ -1,5 +1,5 @@
 # This is the version that the current ODFE package depends on
-ELASTICSEARCH_VERSION="6.8.22"
+ELASTICSEARCH_VERSION="6.8.23"
 ELASTICSEARCH_PKG_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-$ELASTICSEARCH_VERSION.tar.gz"
 pkg_version=0.10.22.0
 ELASTICSEARCH_PLUGINS=(
