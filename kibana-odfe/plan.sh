@@ -1,8 +1,8 @@
 pkg_name=kibana-odfe
-KIBANA_VERSION="6.8.6"
+KIBANA_VERSION="6.8.22"
 KIBANA_PKG_URL="https://artifacts.elastic.co/downloads/kibana/kibana-oss-$KIBANA_VERSION-linux-x86_64.tar.gz"
-pkg_version="0.10.0.4"
-opendistro_version="0.10.1.2"
+pkg_version="0.10.1.1"
+opendistro_version="0.10.22.0"
 nvm_version="0.35.3"
 pkg_origin="chef"
 pkg_license=('Apache-2.0')
@@ -40,7 +40,7 @@ do_download() {
   rm -rf $HAB_CACHE_SRC_PATH/deprecated-security-parent
   git clone https://github.com/opendistro-for-elasticsearch/deprecated-security-parent.git $HAB_CACHE_SRC_PATH/deprecated-security-parent
   rm -rf $HAB_CACHE_SRC_PATH/security-kibana-plugin
-  git clone https://github.com/opendistro-for-elasticsearch/security-kibana-plugin.git $HAB_CACHE_SRC_PATH/security-kibana-plugin
+  git clone https://github.com/opensearch-project/security-dashboards-plugin.git $HAB_CACHE_SRC_PATH/security-kibana-plugin
 }
 
 do_unpack() {
@@ -67,18 +67,18 @@ do_build() {
   # The 6.8 version of this plugin deps on the now deprecated security-parent plugin.
   # This can be removed once we go to 7.X
   pushd /hab/cache/src/deprecated-security-parent>/dev/null || exit 1
-  git checkout tags/v${pkg_version}
+  git checkout origin/opendistro-0.10
   mvn compile -Dmaven.test.skip=true
   mvn package -Dmaven.test.skip=true
   mvn install -Dmaven.test.skip=true
   popd || exit 1
 
-  # Build the Kibana plugin itself. We're using opendistro 0.10.0.6, but 0.10.0.4 is as close as exists for kibana
+  # Build the Kibana plugin itself.
   pushd /hab/cache/src/security-kibana-plugin>/dev/null || exit 1
-  git checkout tags/v${pkg_version}
+  git checkout opendistro-0.10
 
   # Swap the hardcoded 6.8.1 version for 6.8.6
-  sed -i 's/6.8.1/6.8.6/g' package.json
+  sed -i "s/6.8.6/${KIBANA_VERSION}/g" package.json
 
   # This will fail, but sets up enough of an environment to not fail again
   ./build.sh ${KIBANA_VERSION} ${opendistro_version} install || true
