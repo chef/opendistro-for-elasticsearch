@@ -39,4 +39,5 @@ Currently this plan supports standalone topology.
 No update strategy or at-once update strategy works fine in a single-node installation.
 
 
+
 ### Configuration Updates
